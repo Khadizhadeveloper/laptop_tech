@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
+from django.utils.translation import gettext_lazy as _
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -32,21 +34,31 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
-    'laptop.apps.LaptopConfig',
-    'drf_yasg',
 
-]
+    'laptop.apps.LaptopConfig',
+
+    'modeltranslation',
+    'drf_yasg',
+    'rest_framework',
+    'allauth',  # аутентификации и регистрации польз.
+    'crispy_forms',  # стилизации форм
+    'django_filters',  # фильтрации
+    'categories',  # управления категориями товаров
+    'mptt',  # иерархическое представление категорий товаров
+    ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -111,21 +123,22 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
 LANGUAGES = [
-    ('ky', 'Kyrgyz'),
-    ('ru', 'Russian'),
-    ('en', 'English'),
-]
-LOCALE_PATHS = [
-    os.path.join(BASE_DIR, 'locale'),
+    ('ky', _('Kyrgyz')),
+    ('ru', _('Russian')),
 ]
 
-LANGUAGE_CODE = 'ru'  # Установи язык по умолчанию
+# LOCALE_PATHS = [
+#     os.path.join(BASE_DIR, 'locale'),
+# ]
+
+MODELTRANSLATION_DEFAULT_LANGUAGE = 'ru'
+
+LANGUAGE_CODE = 'ru'
+
 USE_I18N = True
 USE_L10N = True
 
 TIME_ZONE = 'UTC'
-
-
 
 USE_TZ = True
 
@@ -139,3 +152,5 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+JAZZMIN_SETTINGS = {}

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from laptop.models import Laptop
+from .models import Laptop
 
 
 # Register your models here.
