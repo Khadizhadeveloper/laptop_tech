@@ -5,9 +5,9 @@ from .models import Laptop
 class LaptopSerializer(serializers.ModelSerializer):
     class Meta:
         model = Laptop
-        fields = ['name', 'description', 'price']
+        fields = '__all__'
         extra_kwargs = {
-            'name': {'help_text': _("Название ноутбука")},
+            'title': {'help_text': _("Название ноутбука")},
             'description': {'help_text': _("Описание ноутбука")},
         }
 
