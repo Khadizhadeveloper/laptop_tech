@@ -1,3 +1,0 @@
-JAZZMIN_SETTING = {
-
-}

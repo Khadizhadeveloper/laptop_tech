@@ -1,32 +1,36 @@
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.http import JsonResponse
 from rest_framework import generics
+
 
 from .models import Laptop
 from .serializers import LaptopSerializer
 from .permissions import IsAdminUser
+
+def home(request):
+    return render(request, 'laptop/home.html', {})
 
 
 class LaptopList(generics.ListAPIView):
     queryset = Laptop.objects.all()
     serializer_class = LaptopSerializer
 
+
 class LaptopDetail(generics.RetrieveAPIView):
     queryset = Laptop.objects.all()
     serializer_class = LaptopSerializer
+
 
 class LaptopDelete(generics.DestroyAPIView):
     queryset = Laptop.objects.all()
     serializer_class = LaptopSerializer
     permission_classes = [IsAdminUser]
 
+
 class LaptopUpdate(generics.UpdateAPIView):
     queryset = Laptop.objects.all()
     serializer_class = LaptopSerializer
     permission_classes = [IsAdminUser]
-
-
-
 
 
 def rate_laptop(request, product_id):
