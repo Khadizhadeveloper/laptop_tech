@@ -21,3 +21,13 @@ class Laptop(models.Model):
 
     def __str__(self):
         return f"{self.brand} {self.model}"
+
+class Order(models.Model):
+    name=models.CharField(max_length=255, verbose_name=_('Name'))
+    email=models.EmailField(verbose_name=_('Email'))
+    phone=models.CharField(max_length=255, verbose_name=_('Phone'))
+    laptop=models.ForeignKey(Laptop, on_delete=models.CASCADE, verbose_name=_('Laptop'))
+    created_at=models.DateTimeField(auto_now_add=True, verbose_name=_('Created at'))
+
+    def __str__(self):
+        return f"{self.email} оформил(-a) заказ на {self.laptop}"
