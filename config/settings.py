@@ -28,6 +28,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'blossomblessed9@gmail.com'  # Ваша почта
+EMAIL_HOST_PASSWORD = 'keiczusssppwgtfo '  # Пароль от почты
+DEFAULT_FROM_EMAIL = 'blossomblessed9@gmail.com'  # Отправитель
+
 
 # Application definition
 
@@ -41,8 +49,11 @@ INSTALLED_APPS = [
     'rest_framework',
     'laptop.apps.LaptopConfig',
     'drf_yasg',
+    'modeltranslation',
+
 
 ]
+# AUTH_USER_MODEL = 'auth.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
