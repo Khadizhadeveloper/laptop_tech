@@ -2,7 +2,6 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 class Laptop(models.Model):
-    name = models.CharField(max_length=255, verbose_name=_('Name'))
     brand = models.CharField(max_length=255, verbose_name=_('Brand'))
     model = models.CharField(max_length=255, verbose_name=_('Model'))
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=_('Price'))
