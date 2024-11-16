@@ -1,0 +1,12 @@
+Django
+djangorestframework
+django-allauth
+django-crispy-forms
+djangorestframework
+django-filter
+django-categories
+django-mptt
+drf-yasg
+django-jazzmin
+
+pillow

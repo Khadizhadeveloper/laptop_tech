@@ -38,6 +38,7 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('laptop/', include('laptop.urls')),
+    path('cart/', include('cart.urls')),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),  # URL для Swagger UI
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),  # URL для ReDoc
 ]

@@ -1,25 +1,41 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-class Laptop(models.Model):
+
+class Product(models.Model):
+    title = models.CharField(max_length=255)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    description = models.TextField()
+
+    class Meta:
+        abstract = True  # Абстрактная модель, не будет создавать таблицу в БД
+
+    def __str__(self):
+        return self.title
+class Laptop(Product):
+    title = models.CharField(max_length=255, verbose_name=_('Title'))
     brand = models.CharField(max_length=255, verbose_name=_('Brand'))
     model = models.CharField(max_length=255, verbose_name=_('Model'))
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name=_('Price'))
     description = models.TextField(verbose_name=_('Description'))
     image = models.ImageField(upload_to='laptops/', verbose_name=_('Image'))
     color = models.CharField(max_length=255, verbose_name=_('Color'))
-    stock = models.IntegerField(verbose_name=_('Stock'))
     processor = models.CharField(max_length=255, verbose_name=_('Processor'))
     ram = models.IntegerField(verbose_name=_('RAM'))
     storage = models.IntegerField(verbose_name=_('Storage'))
     screen_size = models.DecimalField(max_digits=3, decimal_places=1, verbose_name=_('Screen size'))
-    release_date = models.DateField(verbose_name=_('Release date'))
-    warranty_period = models.DateField(verbose_name=_('Warranty period'))
-    rating = models.DecimalField(max_digits=3, decimal_places=2, null=True, blank=True, verbose_name=_('Rating'))
-    is_active = models.BooleanField(default=True, verbose_name=_('Active'))
+    stock = models.BooleanField(default=False)
+
+    total_rating = models.PositiveIntegerField(default=0)  # Сумма всех оценок
+    rating_count = models.PositiveIntegerField(default=0)  # Количество голосов
+
+    @property
+    def average_rating(self):
+        return self.total_rating / self.rating_count if self.rating_count > 0 else 0
 
     def __str__(self):
         return f"{self.brand} {self.model}"
+
 
 class Order(models.Model):
     name=models.CharField(max_length=255, verbose_name=_('Name'))
