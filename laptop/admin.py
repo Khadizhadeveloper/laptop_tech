@@ -1,7 +1,23 @@
 from django.contrib import admin
-from .models import Laptop
 
+from laptop.models import Laptop, Order
+
+
+@admin.register(Laptop)
 class LaptopAdmin(admin.ModelAdmin):
-    readonly_fields = ('total_rating', 'rating_count')  # исключаем поля из админки
+    # Добавляем фильтры по полям
+    list_filter = ['brand', 'price']
 
-admin.site.register(Laptop,LaptopAdmin)
+    # Добавляем нужные поля для отображения
+    list_display = ['brand', 'price', 'ram', 'screen_size']
+
+    # Настройка поиска по полям
+    search_fields = ['brand']
+    readonly_fields = ('total_rating', 'rating_count')
+# Register your models here.
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ['name','phone','email', 'laptop', 'created_at']
+    search_fields = ['name', 'laptop']
+    list_filter = ['created_at', 'laptop']
+
