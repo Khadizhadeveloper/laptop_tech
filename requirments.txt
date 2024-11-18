@@ -8,5 +8,4 @@ django-categories
 django-mptt
 drf-yasg
 django-jazzmin
-
 pillow
