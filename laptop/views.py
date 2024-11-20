@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, render
 from django.http import JsonResponse
 from rest_framework import generics
-
+from .tasks import send_order_email
 
 from .models import Laptop, Order
 from .serializers import LaptopSerializer, OrderSerializer
@@ -35,6 +35,17 @@ class LaptopUpdate(generics.UpdateAPIView):
 class OrderCreateView(generics.CreateAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
+
+    def perform_create(self, serializer):
+        order = serializer.save()  # Сохраняем заказ
+        # Вызов задачи Celery
+        send_order_email.delay(
+            order.id,
+            order.name,
+            order.email,
+            order.phone,
+            order.laptop.model,
+        )
 
 
 class OrderListView(generics.ListAPIView):
