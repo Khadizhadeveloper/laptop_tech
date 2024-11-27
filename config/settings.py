@@ -14,7 +14,6 @@ from pathlib import Path
 import os
 from django.utils.translation import gettext_lazy as _
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -35,6 +34,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'jazzmin',
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'django_filters',  # фильтрации
     'categories',  # управления категориями товаров
     'mptt',  # иерархическое представление категорий товаров
+    'channels', # чат в реальном времени
     ]
 
 
@@ -73,7 +74,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [BASE_DIR / "templates"],  # Добавьте этот путь, если его нет
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -87,7 +88,36 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'config.wsgi.application'
+
+# TEMPLATES = [
+#     {
+#         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+#         'DIRS': [
+#             BASE_DIR / 'templates',  # Убедитесь, что папка templates в корне вашего проекта
+#         ],
+#         'APP_DIRS': True,  # Это позволяет Django искать шаблоны внутри каждого приложения
+#         'OPTIONS': {
+#             'context_processors': [
+#                 'django.template.context_processors.debug',
+#                 'django.template.context_processors.request',
+#                 'django.contrib.auth.context_processors.auth',
+#                 'django.contrib.messages.context_processors.messages',
+#             ],
+#         },
+#     },
+# ]
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],  # убедитесь, что Redis работает
+        },
+    },
+}
+
+
+ASGI_APPLICATION = 'config.asgi.application'  # Укажите путь к вашему файлу asgi.py
 
 
 # Database
@@ -129,9 +159,6 @@ LANGUAGES = [
     ('ru', _('Russian')),
 ]
 
-# LOCALE_PATHS = [
-#     os.path.join(BASE_DIR, 'locale'),
-# ]
 
 MODELTRANSLATION_DEFAULT_LANGUAGE = 'ru'
 

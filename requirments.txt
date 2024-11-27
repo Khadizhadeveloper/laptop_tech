@@ -9,3 +9,4 @@ django-mptt
 drf-yasg
 django-jazzmin
 pillow
+channels
