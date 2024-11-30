@@ -44,11 +44,10 @@ INSTALLED_APPS = [
 
     'laptop',
     'cart',
-    'django_celery_results',
+
     'modeltranslation',
     'drf_yasg',
     'rest_framework',
-    'daphne',
     'allauth',  # аутентификации и регистрации польз.
     'crispy_forms',  # стилизации форм
     'django_filters',  # фильтрации
@@ -88,13 +87,6 @@ TEMPLATES = [
         },
     },
 ]
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'blossomblessed9@gmail.com'  # Ваша почта
-EMAIL_HOST_PASSWORD = 'keiczusssppwgtfo '  # Пароль от почты
-DEFAULT_FROM_EMAIL = 'blossomblessed9@gmail.com'  # Отправитель
 
 
 # TEMPLATES = [
@@ -126,14 +118,6 @@ CHANNEL_LAYERS = {
 
 
 ASGI_APPLICATION = 'config.asgi.application'  # Укажите путь к вашему файлу asgi.py
-
-# Настройки Celery
-CELERY_BROKER_URL = 'redis://localhost:6379/0'  # URL брокера задач (Redis)
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_TASK_SERIALIZER = 'json'
-
-# Хранилище результатов (опционально)
-CELERY_RESULT_BACKEND = 'django-db'
 
 
 # Database
