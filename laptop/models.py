@@ -12,6 +12,7 @@ class Product(models.Model):
 
     def __str__(self):
         return self.title
+
 class Laptop(Product):
     title = models.CharField(max_length=255, verbose_name=_('Title'))
     brand = models.CharField(max_length=255, verbose_name=_('Brand'))
